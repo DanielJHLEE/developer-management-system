@@ -46,8 +46,7 @@ Developer Default
 
 mysql -u root -p
 
-설치 과정에서 설정한 root 비밀번호를 입력합니다.
-
+설치 과정에서 설정한 root 비밀번호를 입력합니다.  
 정상적으로 접속되면 다음과 같은 화면이 표시됩니다.
 
 mysql>
@@ -55,45 +54,22 @@ mysql>
 # 3. Spring Boot 데이터베이스 설정
 
 이 프로젝트는 JDBC 옵션을 사용하여 데이터베이스를 자동 생성하도록 구성되어 있습니다.
-
 application.yaml
-
-spring:
-  application:
-    name: developer-management-system
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/dev_management?createDatabaseIfNotExist=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-
-server:
-  port: 8080
 
 # 4. 데이터베이스 자동 생성 방식
 프로젝트 실행 시 다음과 같은 순서로 동작합니다.
 
-* Spring Boot 실행
-  ↓
-* MySQL 접속
-  ↓
-* dev_management 데이터베이스 존재 여부 확인
-  ↓
-* 없으면 자동 생성
-  ↓
-* JPA Entity 기준 테이블 생성
+Spring Boot 실행  
+↓
+MySQL 접속  
+↓
+dev_management 데이터베이스 존재 여부 확인  
+↓
+없으면 자동 생성  
+↓
+JPA Entity 기준 테이블 생성  
 
-# 구조 예시
+구조 예시
 
 MySQL
  └ dev_management
