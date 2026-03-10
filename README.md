@@ -96,9 +96,14 @@ user_age | 나이
 user_phone_no | 휴대폰 번호
 user_grade | 개발자 등급
 user_addr | 주소
+user_gender | 성별
+user_rank | 고용 형태
+worker_role | 직급
 use_yn | 사용 여부 (입/퇴사)
 reg_dt | 등록일
 upd_dt | 수정일
+
+개발자 기본 정보를 관리하는 테이블이며 다른 테이블의 기준이 되는 **마스터 테이블**입니다.
 
 ---
 
@@ -114,6 +119,16 @@ grade | 언어 숙련도
 reg_dt | 등록일
 upd_dt | 수정일
 
+개발자가 보유한 기술 정보를 관리하는 테이블입니다.
+
+**관계**
+
+```
+TB_USER_MST (1) : (N) TB_USER_SKILL
+```
+
+개발자 한 명이 여러 기술을 가질 수 있습니다.
+
 ---
 
 ### TB_PRJ_MST
@@ -121,7 +136,7 @@ upd_dt | 수정일
 
 | Column | Description |
 |------|------|
-prj_no | 프로젝트 식별 키
+prj_no | 프로젝트 식별 키 (PK)
 prj_nm | 프로젝트 이름
 prj_start_date | 프로젝트 시작일
 prj_end_date | 프로젝트 종료일
@@ -133,6 +148,8 @@ cnc_prgrs_yn | C&C 진행 여부
 reg_dt | 등록일
 upd_dt | 수정일
 
+프로젝트 기본 정보를 관리하는 테이블입니다.
+
 ---
 
 ### TB_INPUT_HIST
@@ -140,14 +157,27 @@ upd_dt | 수정일
 
 | Column | Description |
 |------|------|
-prj_no | 프로젝트 참조 키
-user_no | 유저 참조 키
+input_hist_no | 투입 이력 식별 키 (PK)
+prj_no | 프로젝트 참조 키 (FK)
+user_no | 유저 참조 키 (FK)
 input_start_date | 투입 시작일
 input_end_date | 투입 종료일
 pm_yn | PM 여부
 pl_yn | PL 여부
 reg_dt | 등록일
 upd_dt | 수정일
+
+개발자의 프로젝트 투입 이력을 관리하는 테이블입니다.
+
+**관계**
+
+```
+TB_USER_MST (1) : (N) TB_INPUT_HIST
+TB_PRJ_MST (1) : (N) TB_INPUT_HIST
+```
+
+개발자 한 명은 여러 프로젝트에 투입될 수 있으며  
+하나의 프로젝트에도 여러 개발자가 투입될 수 있습니다.
 
 ---
 
@@ -165,6 +195,8 @@ ord_no | 정렬 순서
 use_yn | 사용 여부
 reg_dt | 등록일
 upd_dt | 수정일
+
+공통 코드 데이터를 관리하기 위한 테이블입니다.
 
 ---
 
@@ -298,10 +330,40 @@ MySQL
 src/main/resources/data.sql
 ```
 
+테이블 초기화 및 데이터 삽입은 다음 순서로 진행됩니다.
+
+### 1. 테이블 초기화 (외래키 FK 관계 고려)
+
+```
+1. TB_INPUT_HIST
+2. TB_USER_SKILL
+3. TB_PRJ_MST
+4. TB_USER_MST
+5. TB_COM_CODE
+```
+
+외래키(FK) 관계로 인해 하위 테이블부터 초기화됩니다.
+
+### 2. 테스트 데이터 삽입
+
+```
+1. TB_USER_MST
+2. TB_PRJ_MST
+3. TB_USER_SKILL
+4. TB_INPUT_HIST
+5. TB_COM_CODE
+```
+
+참조 관계에 맞게 상위 테이블부터 데이터가 삽입됩니다.
+
 예시
 
 ```sql
+TRUNCATE TABLE TB_INPUT_HIST;
+TRUNCATE TABLE TB_USER_SKILL;
+TRUNCATE TABLE TB_PRJ_MST;
 TRUNCATE TABLE TB_USER_MST;
+TRUNCATE TABLE TB_COM_CODE;
 
 INSERT INTO TB_USER_MST
 (user_nm, user_age, user_phone_no, user_grade, user_addr, user_gender, use_yn, reg_dt, upd_dt)

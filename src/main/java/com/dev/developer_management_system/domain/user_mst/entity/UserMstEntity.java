@@ -1,10 +1,21 @@
 package com.dev.developer_management_system.domain.user_mst.entity;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.dev.developer_management_system.domain.project_history.entity.ProjectHistoryEntity;
+import com.dev.developer_management_system.domain.skills.entity.SkillEntity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -43,6 +54,33 @@ public class UserMstEntity {
 
     @Column(name = "use_yn")
     private String useYn;
+
+    /**
+     * 개발자 스킬 목록
+     *
+     * ERD 관계
+     * TB_USER_MST (1) : (N) TB_USER_SKILL
+     *
+     * 개발자 1명이 여러 개의 개발 스킬을 가질 수 있음
+     * TB_USER_SKILL.user_no 와 매핑되는 관계
+     *
+     * mappedBy = "user"
+     * → SkillEntity의 user 필드가 연관관계의 주인
+     */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<SkillEntity> skills;
+
+    /**
+     * 프로젝트 투입 이력 목록
+     * 
+     * ERD 관계
+     * TB_USER_MST (1) : (N) TB_INPUT_HIST
+     * 
+     * 개발자 1명은 여러 프로젝트에 투입될 수 있으므로
+     * TB_INPUT_HIST.user_no 와 매핑되는 관계
+     */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<ProjectHistoryEntity> projectHistories;
 
     @Column(name = "reg_dt")
     private LocalDateTime regDt;
