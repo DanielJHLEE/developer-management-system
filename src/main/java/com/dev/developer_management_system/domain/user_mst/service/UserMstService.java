@@ -31,4 +31,15 @@ public class UserMstService {
                 .map(UserMstDto.UserMstResponseDto::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    /**
+     * 개발자 상세 조회
+     */
+    public UserMstDto.UserMstResponseDto getUserMstDetail(Long userNo) {
+
+        UserMstEntity user = userMstRepository.findById(userNo)
+                .orElseThrow(() -> new RuntimeException("해당 개발자가 존재하지 않습니다."));
+
+        return UserMstDto.UserMstResponseDto.fromEntity(user);
+    }
 }

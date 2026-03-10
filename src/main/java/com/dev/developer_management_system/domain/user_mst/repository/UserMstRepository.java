@@ -11,5 +11,4 @@ import com.dev.developer_management_system.domain.user_mst.entity.UserMstEntity;
  */
 @Repository
 public interface UserMstRepository extends JpaRepository<UserMstEntity, Long> {
-
 }
