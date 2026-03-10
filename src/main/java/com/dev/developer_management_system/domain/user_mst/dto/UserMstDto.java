@@ -32,6 +32,8 @@ public class UserMstDto {
         private String userGrade;
         private String userAddr;
         private String userGender;
+        private String userRank;
+        private String workerRole;
         private String useYn;
         private LocalDateTime regDt;
         private LocalDateTime updDt;
@@ -48,6 +50,8 @@ public class UserMstDto {
                     .userGrade(user.getUserGrade())
                     .userAddr(user.getUserAddr())
                     .userGender(user.getUserGender())
+                    .userRank(user.getUserRank())
+                    .workerRole(user.getWorkerRole())
                     .useYn(user.getUseYn())
                     .regDt(user.getRegDt())
                     .updDt(user.getUpdDt())

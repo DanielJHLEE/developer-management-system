@@ -28,12 +28,18 @@ public class UserMstEntity {
 
     @Column(name = "user_grade")
     private String userGrade;
-
+    
     @Column(name = "user_addr")
     private String userAddr;
 
     @Column(name = "user_gender")
     private String userGender;
+
+    @Column(name = "user_rank")
+    private String userRank;
+
+    @Column(name = "worker_role")
+    private String workerRole;
 
     @Column(name = "use_yn")
     private String useYn;
@@ -43,5 +49,4 @@ public class UserMstEntity {
 
     @Column(name = "upd_dt")
     private LocalDateTime updDt;
-
 }
