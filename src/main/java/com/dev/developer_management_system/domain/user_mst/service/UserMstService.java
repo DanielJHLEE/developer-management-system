@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.dev.developer_management_system.domain.user_mst.dto.UserMstDto;
 import com.dev.developer_management_system.domain.user_mst.entity.UserMstEntity;
 import com.dev.developer_management_system.domain.user_mst.repository.UserMstRepository;
+import com.dev.developer_management_system.global.dto.ApiResponseDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,22 +25,29 @@ public class UserMstService {
     /**
      * 개발자 목록 조회
      */
-    public List<UserMstDto.UserMstResponseDto> getUserMstList() {
+    public ApiResponseDto<List<UserMstDto.UserMstResponseDto>> getUserMstList() {
+        
         List<UserMstEntity> userMstList = userMstRepository.findAll();
 
-        return userMstList.stream()
-                .map(UserMstDto.UserMstResponseDto::fromEntity)
-                .collect(Collectors.toList());
+        List<UserMstDto.UserMstResponseDto> result =
+                userMstList.stream()
+                        .map(UserMstDto.UserMstResponseDto::fromEntity)
+                        .collect(Collectors.toList());
+
+        return ApiResponseDto.success(result);
     }
 
     /**
      * 개발자 상세 조회
      */
-    public UserMstDto.UserMstResponseDto getUserMstDetail(Long userNo) {
+    public ApiResponseDto<UserMstDto.UserMstResponseDto> getUserMstDetail(Long userNo) {
 
         UserMstEntity user = userMstRepository.findById(userNo)
-                .orElseThrow(() -> new RuntimeException("해당 개발자가 존재하지 않습니다."));
+            .orElseThrow(() -> new RuntimeException("해당 개발자가 존재하지 않습니다."));
 
-        return UserMstDto.UserMstResponseDto.fromEntity(user);
+        UserMstDto.UserMstResponseDto result =
+                UserMstDto.UserMstResponseDto.fromEntity(user);
+
+        return ApiResponseDto.success(result);
     }
 }
