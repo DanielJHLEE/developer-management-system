@@ -1,0 +1,26 @@
+TRUNCATE TABLE TB_USER_MST;
+
+INSERT INTO TB_USER_MST 
+(user_nm, user_age, user_phone_no, user_grade, user_addr, user_gender, use_yn, reg_dt, upd_dt)
+VALUES
+('김개발', 29, '01012345678', 'A', '서울 강남구', '남', 'Y', NOW(), NULL);
+
+INSERT INTO TB_USER_MST 
+(user_nm, user_age, user_phone_no, user_grade, user_gender, user_addr, use_yn, reg_dt, upd_dt)
+VALUES
+('이프론트', 32, '01023456789', 'B', '서울 마포구', '여', 'Y', NOW(), NULL);
+
+INSERT INTO TB_USER_MST 
+(user_nm, user_age, user_phone_no, user_grade, user_gender, user_addr, use_yn, reg_dt, upd_dt)
+VALUES
+('박백엔드', 35, '01034567890', 'A', '경기 성남시', '남', 'Y', NOW(), NULL);
+
+INSERT INTO TB_USER_MST 
+(user_nm, user_age, user_phone_no, user_grade, user_gender, user_addr, use_yn, reg_dt, upd_dt)
+VALUES
+('최풀스택', 31, '01045678901', 'S', '인천 연수구', '여', 'Y', NOW(), NULL);
+
+INSERT INTO TB_USER_MST 
+(user_nm, user_age, user_phone_no, user_grade, user_gender, user_addr, use_yn, reg_dt, upd_dt)
+VALUES
+('정주니어', 26, '01056789012', 'C', '서울 관악구', '남', 'Y', NOW(), NULL);
