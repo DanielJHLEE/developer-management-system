@@ -37,7 +37,14 @@ public final class SwaggerTags {
 
 
     /* ==========================================================
-     * 📦 인력 SKILL(TB_USER_SKILL) API
+     * 📦 투입 이력(TB_INPUT_HIST) API
      * ========================================================== */
-    
+
+    public static final String INPUT_HIST_NAME = "📦 투입 이력(TB_INPUT_HIST) API";
+    public static final String INPUT_HIST_DESC =
+            "<b>투입 이력 관리 API</b><br>" +
+            "개발자 투입 이력을 조회하는 기능을 제공합니다.<br>" +
+            "투입 이력 목록 조회 및 투입 이력 번호(input_hist_no) 기준 상세 조회 기능을 포함합니다.<br>" +
+            "더미 데이터: <b>5개</b>";
+
 }
