@@ -1,4 +1,4 @@
-# developer-management-system
+# BE-developer-management-system
 개발자 인력 관리 프로젝트
 
 Spring Boot, JPA, Gradle, Swagger UI를 사용하여 개발자 인력 정보를 관리하는 API
