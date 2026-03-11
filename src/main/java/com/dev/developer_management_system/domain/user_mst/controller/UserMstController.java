@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -85,6 +87,24 @@ public class UserMstController {
                     ApiResponseDto.success(HttpStatus.OK.getReasonPhrase(), null)
             );
         }
+    }
+
+    /**
+     * 개발자 등록
+     * POST /user-mst
+     */
+    @PostMapping
+    @Operation(
+        summary = "사용자(개발자 인력) 등록",
+        description = SwaggerTags.USER_CREATE_DESC
+    )
+    public ResponseEntity<ApiResponseDto<Void>> createUserMst(
+            @RequestBody UserMstDto.UserMstCreateRequestDto requestDto) {
+
+        userMstService.createUserMst(requestDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponseDto.success(HttpStatus.CREATED.getReasonPhrase(), null));
     }
 
         

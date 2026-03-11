@@ -7,6 +7,7 @@ import com.dev.developer_management_system.domain.project_history.entity.Project
 import com.dev.developer_management_system.domain.skills.entity.SkillEntity;
 import com.dev.developer_management_system.domain.user_mst.entity.UserMstEntity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,92 @@ import lombok.NoArgsConstructor;
  */
 public class UserMstDto {
 
+    /* =========================================================
+     * Request DTO (개발자 등록)
+     * ========================================================= */
+    /**
+     * 개발자 등록 요청 DTO
+     */
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UserMstCreateRequestDto {
+
+        private String userNm;
+        private Integer userAge;
+        private Integer empNo;
+        private String userPhoneNo;
+        private String userGrade;
+        private String userAddr;
+        private String userGender;
+        private String userRank;
+        private String workerRole;
+        private String useYn;
+        
+        @Schema(example = "2026-03-11T16:30:00", description = "입사일")
+        private LocalDateTime joinDt;
+
+        /**
+         * 개발자 스킬 목록
+         */
+        private List<UserSkillCreateRequestDto> skills;
+
+        /**
+         * DTO → Entity 변환
+         */
+        public UserMstEntity toEntity() {
+
+            return UserMstEntity.builder()
+                    .userNm(userNm)
+                    .userAge(userAge)
+                    .empNo(empNo)
+                    .userPhoneNo(userPhoneNo)
+                    .userGrade(userGrade)
+                    .userAddr(userAddr)
+                    .userGender(userGender)
+                    .userRank(userRank)
+                    .workerRole(workerRole)
+                    .useYn(useYn)
+                    .joinDt(joinDt)
+                    .build();
+        }
+    }
+
+    /**
+     * 개발자 스킬 등록 요청 DTO
+     */
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UserSkillCreateRequestDto {
+
+        private String language;
+        private String grade;
+
+        /**
+         * DTO → Entity 변환
+         */
+        public SkillEntity toEntity(UserMstEntity user) {
+
+            SkillEntity skill = new SkillEntity();
+
+            skill.setLanguage(language);
+            skill.setGrade(grade);
+
+            /**
+             * FK 설정
+             */
+            skill.setUser(user);
+
+            return skill;
+        }
+    }
+
+    /* =========================================================
+     * Response DTO
+     * ========================================================= */
     /**
      * 개발자 List 응답 DTO
      */

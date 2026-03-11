@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dev.developer_management_system.domain.skills.entity.SkillEntity;
 import com.dev.developer_management_system.domain.user_mst.dto.UserMstDto;
 import com.dev.developer_management_system.domain.user_mst.entity.UserMstEntity;
 import com.dev.developer_management_system.domain.user_mst.repository.UserMstRepository;
@@ -66,5 +67,27 @@ public class UserMstService {
         return true;
     }
 
-    
+    /**
+     * 개발자 등록
+     */
+    @Transactional
+    public void createUserMst(UserMstDto.UserMstCreateRequestDto requestDto) {
+
+        // 1. User Entity 생성
+        UserMstEntity user = requestDto.toEntity();
+
+        // 2. Skill Entity 생성
+        if (requestDto.getSkills() != null && !requestDto.getSkills().isEmpty()) {
+
+            List<SkillEntity> skills = requestDto.getSkills()
+                    .stream()
+                    .map(skillDto -> skillDto.toEntity(user))
+                    .collect(Collectors.toList());
+
+            user.setSkills(skills);
+        }
+
+        // 3. 저장 (cascade로 skill 같이 저장)
+        userMstRepository.save(user);
+    }
 }

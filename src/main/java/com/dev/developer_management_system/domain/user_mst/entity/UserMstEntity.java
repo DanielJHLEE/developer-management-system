@@ -3,6 +3,8 @@ package com.dev.developer_management_system.domain.user_mst.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.dev.developer_management_system.domain.project_history.entity.ProjectHistoryEntity;
 import com.dev.developer_management_system.domain.skills.entity.SkillEntity;
 
@@ -15,11 +17,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "TB_USER_MST")
 public class UserMstEntity {
@@ -91,9 +99,10 @@ public class UserMstEntity {
     @Column(name = "join_dt")
     private LocalDateTime joinDt;
 
-    @Column(name = "reg_dt")
+    @CreationTimestamp
+    @Column(name = "reg_dt", columnDefinition = "datetime")
     private LocalDateTime regDt;
 
-    @Column(name = "upd_dt")
+    @Column(name = "upd_dt", columnDefinition = "datetime")
     private LocalDateTime updDt;
 }

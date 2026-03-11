@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Getter
 @Setter
 @Entity
@@ -35,9 +37,10 @@ public class SkillEntity {
     @Column(name = "grade")
     private String grade;
 
-    @Column(name = "reg_dt")
+    @CreationTimestamp
+    @Column(name = "reg_dt", columnDefinition = "datetime")
     private LocalDateTime regDt;
 
-    @Column(name = "upd_dt")
+    @Column(name = "upd_dt", columnDefinition = "datetime")
     private LocalDateTime updDt;
 }
