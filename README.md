@@ -22,13 +22,19 @@ Spring Boot, JPA, Gradle, Swagger UI를 사용하여 개발자 인력 정보를 
 
 ```
 ./gradlew clean build
+./gradlew build --refresh-dependencies
 ```
+
+- `clean build` : 기존 빌드 산출물을 삭제한 후 프로젝트를 전체 빌드합니다.  
+- `--refresh-dependencies` : Gradle 캐시를 무시하고 의존성을 다시 다운로드하여 빌드합니다.
 
 프로젝트 실행
 
 ```
 ./gradlew bootRun
 ```
+
+- Spring Boot 애플리케이션을 실행합니다.
 
 테스트 API
 
